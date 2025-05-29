@@ -18,10 +18,15 @@ dotenv.config();
 const app = express();
 
 // ✅ Enable CORS
+const allowedOrigins = [
+  "http://localhost:5173", // local development
+  "https://health-care-bot-f.vercel.app/", // your deployed frontend
+];
+
 app.use(
   cors({
-    origin: "https://health-care-bot-f.vercel.app/", // Your frontend
-    credentials: true,
+    origin: allowedOrigins,
+    credentials: true, // if using cookies or Authorization headers
   })
 );
 
