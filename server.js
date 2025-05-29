@@ -20,7 +20,7 @@ const app = express();
 // ✅ Enable CORS
 app.use(
   cors({
-    origin: "https://your-frontend.vercel.app", // Your frontend
+    origin: "https://health-care-bot-f.vercel.app/", // Your frontend
     credentials: true,
   })
 );
