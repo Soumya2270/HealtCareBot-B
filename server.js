@@ -20,7 +20,7 @@ const app = express();
 // ✅ Enable CORS
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend
+    origin: "https://your-frontend.vercel.app", // Your frontend
     credentials: true,
   })
 );
