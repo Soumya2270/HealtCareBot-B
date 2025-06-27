@@ -5,7 +5,7 @@ const {
   chatWithHealthAI,
   getHealthChatHistory,
 } = require("../controllers/healthChatController");
-const { verifyToken } = require("../middleware/authMiddleware"); // ✅ Corrected import
+const { verifyToken } = require("../middleware/authMiddleware");
 
 router.post("/chat", verifyToken, chatWithHealthAI);
 router.get("/chat-history", verifyToken, getHealthChatHistory);

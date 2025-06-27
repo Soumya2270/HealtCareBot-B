@@ -5,18 +5,15 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const { logout } = require("../controllers/authController");
 
-// Initiate Google OAuth
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-// Callback after Google OAuth
 router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login", session: true }),
   (req, res) => {
-    // Generate JWT
     const token = jwt.sign(
       {
         id: req.user._id,
@@ -28,7 +25,6 @@ router.get(
       { expiresIn: "7d" }
     );
 
-    // Redirect to frontend with token in query
     res.redirect(`http://localhost:5173/login?token=${token}`);
   }
 );

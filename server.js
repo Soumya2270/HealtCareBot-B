@@ -9,18 +9,18 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
-const mentalHealthRoutes = require("./routes/mentalHealthRoutes"); // ✅ Imported
-const healthChatRoutes = require("./routes/healthChatRoutes"); // ✅ Imported
-const { chatWithAI } = require("./services/aiService"); // ✅ Gemini AI service
+const mentalHealthRoutes = require("./routes/mentalHealthRoutes");
+const healthChatRoutes = require("./routes/healthChatRoutes");
+const { chatWithAI } = require("./services/aiService");
 
 dotenv.config();
 
 const app = express();
 
-// ✅ Enable CORS
+// CORS setting
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -40,12 +40,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// ✅ Route handlers
+//  Routes
 app.use("/auth", authRoutes);
-app.use("/api/mental-health", mentalHealthRoutes); // Mental health routes
-app.use("/api/health", healthChatRoutes); // General health routes
+app.use("/api/mental-health", mentalHealthRoutes);
+app.use("/api/health", healthChatRoutes);
 
-// ✅ Optional direct AI endpoints (used in frontend Axios POST requests)
 app.post("/api/mental-health/chat", async (req, res) => {
   const { message, history } = req.body;
   history.push({ role: "user", content: message });
@@ -72,11 +71,11 @@ app.post("/api/health/chat", async (req, res) => {
   }
 });
 
-// ✅ Default route
+// home route
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// ✅ Start the server
+//  Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server started on port ${PORT}`));

@@ -21,12 +21,14 @@ exports.googleAuthSuccess = (req, res) => {
   }
 
   const token = createToken(req.user);
-  res.redirect(`${process.env.CLIENT_URL}/auth/success?token=${token}`);
+
+  return res.status(200).json({ token });
 };
 
 exports.logout = (req, res) => {
   req.logout((err) => {
     if (err) return next(err);
-    res.redirect(`${process.env.CLIENT_URL}/login`);
+
+    res.status(200).json({ message: "Logout successful" });
   });
 };

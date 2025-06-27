@@ -1,6 +1,6 @@
 // controllers/healthChatController.js
 const HealthChat = require("../models/HealthChat");
-const { chatWithAI } = require("../services/aiService"); // Ensure correct path
+const { chatWithAI } = require("../services/aiService");
 
 // POST /api/health/chat
 exports.chatWithHealthAI = async (req, res) => {

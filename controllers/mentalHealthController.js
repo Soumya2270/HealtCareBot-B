@@ -1,7 +1,7 @@
 // controllers/mentalHealthController.js
 const MentalResource = require("../models/MentalResource");
 const MentalChat = require("../models/MentalChat");
-const { chatWithAI } = require("../services/aiService"); // Ensure this path is correct
+const { chatWithAI } = require("../services/aiService");
 
 // Get all mental health resources
 exports.getResources = async (req, res) => {
@@ -22,7 +22,6 @@ exports.chatWithMentalAI = async (req, res) => {
   if (!message) return res.status(400).json({ error: "Message is required" });
 
   try {
-    // Get user's existing chat history
     let chat = await MentalChat.findOne({ userId });
 
     if (!chat) {
@@ -31,10 +30,8 @@ exports.chatWithMentalAI = async (req, res) => {
 
     const conversation = [...chat.messages, { role: "user", content: message }];
 
-    // Call your AI service with conversation history
     const aiReply = await chatWithAI(conversation);
 
-    // Append new messages to chat
     chat.messages.push({ role: "user", content: message });
     chat.messages.push({ role: "bot", content: aiReply });
 
@@ -49,7 +46,6 @@ exports.chatWithMentalAI = async (req, res) => {
 
 // Get past mental health chats
 exports.getMentalChats = async (req, res) => {
-  // Assuming you have access to req.user._id from your auth middleware
   const userId = req.user ? req.user._id : null;
 
   try {
